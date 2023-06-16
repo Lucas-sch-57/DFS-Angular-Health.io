@@ -1,0 +1,67 @@
+<section>
+    <h1 class="text-center text-5xl my-10">Bienvenue sur votre espace Health.io <span
+            class="text-primary">{{user?.prenom}}</span></h1>
+    <p class="text-center">
+        Chaque jour vous pouvez entrer les aliments que vous avez consommés à chaque repas !
+        <br>
+        Vous pouvez également suivre vos statistiques de calories, lipides, glucides et protéines !
+    </p>
+</section>
+<section class="my-20">
+    <h2 class="text-3xl p-5 bg-secondary text-black flex justify-between items-center my-10">
+        Consommation du jour
+        <span class="text-xl">{{dayDate}}</span>
+    </h2>
+    <div class="alert alert-error fixed top-0 z-50 w-1/2 left-0" *ngIf="isError">
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{{errorMessage}}</span>
+    </div>
+    <div class="alert alert-success fixed top-0 z-50 w-1/2 left-0" *ngIf="isSuccess">
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{{successMessage}}</span>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+        <article *ngFor="let meal of typeOfMeals" class="border-2 rounded-lg p-5">
+            <div class="flex items-center">
+                <h3 class="my-5 text-2xl mr-10">{{meal}}</h3>
+            </div>
+            <div class="flex items-center">
+                <form [formGroup]="form" (ngSubmit)="onAddMeal(meal)">
+                    <div class="flex items-center">
+                        <select class="select select-bordered w-full max-w-xs" formControlName="aliment">
+                            <option value="" disabled hidden>Choisissez un aliment</option>
+                            <option *ngFor="let aliment of aliments" [value]="aliment.id">{{aliment.name}}</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm ml-5">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+            <div class="flex flex-col" *ngIf="userMeals.length > 0">
+                <h4 class="text-center text-x my-10">Vos aliments :</h4>
+                <div class="overflow-x-auto h-96">
+                    <table class="table table-pin-rows">
+                        <thead>
+                            <tr>
+                                <th>Aliments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let userMeal of userMeals">
+                                <td *ngIf="userMeal.type_of_meal === meal">{{userMeal.aliment.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+<section>
+    <app-day-stats [dayDate]="dayDate" [formattedDate]="formattedDate" [userMeals]="userMeals"></app-day-stats>
+</section>

@@ -1,0 +1,27 @@
+<div class="overflow-x-auto mt-20">
+    <h1 class="text-center text-5xl my-10">Liste des aliments</h1>
+    <table class="table bg-indigo-800 rounded-md">
+        <thead class="text-center">
+            <tr>
+                <th>Nom</th>
+                <th>Calories</th>
+                <th>Lipides</th>
+                <th>Glucides</th>
+                <th>Proteines</th>
+                <th *ngIf="user?.isAdmin">Actions</th>
+            </tr>
+        </thead>
+        <tbody class=" text-center">
+            <tr *ngFor="let aliment of aliments">
+                <td>{{aliment.name}}</td>
+                <td>{{aliment.calories}}</td>
+                <td>{{aliment.lipides}}</td>
+                <td>{{aliment.glucides}}</td>
+                <td>{{aliment.proteines}}</td>
+                <td *ngIf="user?.isAdmin">
+                    <button class="btn btn-outline btn-error btn-sm" (click)="onDelete(aliment.id)">Supprimer</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

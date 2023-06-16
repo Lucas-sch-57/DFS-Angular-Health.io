@@ -1,0 +1,62 @@
+<form class="flex flex-col items-center justify-center w-1/2 mx-auto gap-5 shadow-secondary shadow-md p-5 rounded-lg"
+    [formGroup]="formulaire" (ngSubmit)="onAlimentFormSubmit()">
+    <h1 class="text-center text-5xl">Ajout d'un aliment</h1>
+    <div class="alert alert-success" *ngIf="isSuccess">
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>Aliment ajouté !</span>
+    </div>
+    <div class="alert alert-error" *ngIf="isError">
+        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{{errorMessage}}</span>
+    </div>
+    <div class="form-group w-full flex flex-col gap-2">
+        <label for="aliment-name">Nom de l'aliment</label>
+        <input type="text" class="input input-bordered input-secondary w-full" id="aliment-name"
+            formControlName="name" />
+        <p class="text-error" *ngIf="formulaire.get('name')?.hasError('required') && formulaire.get('name')?.touched">Ce
+            champs est obligatoire</p>
+    </div>
+    <div class="form-group w-full flex flex-col gap-2">
+        <label for="aliment-calories">Calories</label>
+        <input type="number" class=" input input-bordered input-secondary w-full" id="aliment-calories" step="0.1"
+            formControlName="calories" />
+        <p class="text-error"
+            *ngIf="formulaire.get('calories')?.hasError('required') && formulaire.get('calories')?.touched">Ce
+            champs est obligatoire</p>
+
+    </div>
+    <div class="form-group w-full flex flex-col gap-2">
+        <label for="aliment-lipides">Lipides</label>
+        <input type="number" class="input input-bordered input-secondary w-full" id="aliment-lipides" step="0.1"
+            formControlName="lipides" />
+        <p class="text-error"
+            *ngIf="formulaire.get('lipides')?.hasError('required') && formulaire.get('lipides')?.touched">Ce
+            champs est obligatoire</p>
+
+    </div>
+    <div class="form-group w-full flex flex-col gap-2">
+        <label for="aliment-glucides">Glucides</label>
+        <input type="number" class=" input input-bordered input-secondary w-full" id="aliment-glucides" step="0.1"
+            formControlName="glucides" />
+        <p class="text-error"
+            *ngIf="formulaire.get('glucides')?.hasError('required') && formulaire.get('glucides')?.touched">Ce
+            champs est obligatoire</p>
+
+    </div>
+    <div class="form-group w-full flex flex-col gap-2">
+        <label for="aliment-proteines">Proteines</label>
+        <input type="number" class="input input-bordered input-secondary w-full" id="aliment-calories" step="0.1"
+            formControlName="proteines" />
+        <p class="text-error"
+            *ngIf="formulaire.get('proteines')?.hasError('required') && formulaire.get('proteines')?.touched">Ce
+            champs est obligatoire</p>
+
+    </div>
+    <button type="sumbit" class="btn btn-primary text-white self-start">Ajouter</button>
+</form>
